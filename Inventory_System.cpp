@@ -77,23 +77,46 @@ public:
     // Method to edit a component
     void editComponent(int componentIndex) {
         if (componentIndex < 0 || componentIndex >= numComponents) {
-            cout << "         Invalid component index.\n";
-            return;
-        }
+        	cout << "         Invalid component index.\n";
+        	return;
+    	}
 
-        string name, status;
-        int quantity;
+    	string name, status;
+    	int quantity;
 
-        cout << "         Enter new name: ";
-        cin >> name;
-        cout << "         Enter new quantity: ";
-        cin >> quantity;
-        cout << "         Enter new status (Good or Bad!): ";
-        cin >> status;
+    	// Display the current details of the component
+    	cout << "         Editing Component: " << components[componentIndex].name << endl;
+    	cout << "         Current name: " << components[componentIndex].name << endl;
+    	cout << "         Current quantity: " << components[componentIndex].quantity << endl;
+    	cout << "         Current status: " << components[componentIndex].status << endl;
+    	cout << "         -------------------------------\n";
 
-        components[componentIndex] = {name, quantity, status};
-        system("cls");
-        cout << "\n\n\n\n\n\n\n\n\n\n                                                 _________________________ \n";
+    	// Now ask the user for new details
+    	cout << "         Enter new name (leave blank to keep current): ";
+    	cin.ignore();  // Ignore any leftover newline characters from previous input
+    	getline(cin, name);  // Get full line input (including spaces)
+
+    	if (name.empty()) {
+        	name = components[componentIndex].name;  // If no new name is entered, keep the old one
+    	}
+
+    	cout << "         Enter new quantity (enter 0 to keep current): ";
+    	cin >> quantity;
+    	if (quantity == 0) {
+       	 quantity = components[componentIndex].quantity;  // Keep the old quantity if user enters 0
+    	}
+
+    	cout << "         Enter new status (Good or Bad!): ";
+    	cin >> status;
+    	if (status.empty()) {
+        	status = components[componentIndex].status;  // Keep the old status if no new status is entered
+    	}
+
+    	// Update the component with the new details
+    	components[componentIndex] = {name, quantity, status};
+
+    	system("cls");
+    	cout << "\n\n\n\n\n\n\n\n\n\n                                                 _________________________ \n";
     	cout << "                                                |  _____________________  |\n";
     	cout << "                                                |:|  COMPONENT UPDATED  |:|\n";
     	cout << "                                                |:|_____________________|:|\n";
@@ -169,19 +192,20 @@ void displayComponentGrid() {
     cout << "                                                |:|  INVENTORY SYSTEM:  |:|\n";
     cout << "                                                |:|_____________________|:|\n";
     cout << "                                                |_________________________|\n";
-    cout << "                                _____________________________________________________________ \n";
-    cout << "                               |  _________________________________________________________  |\n";
-    cout << "                               |:|               COMPUTER LABORATORY 01 UNIT     [3] EXIT  |:|\n";
-    cout << "                               |:|---------------------------------------------------------|:|\n";
-    cout << "                               |:|   C01   |    C02    |    C03    |    C04    |    C05    |:|\n";
-    cout << "                               |:|---------------------------------------------------------|:|\n";
-    cout << "                               |:|   C06   |    C07    |    C08    |    C09    |    C10    |:|\n";
-    cout << "                               |:|---------------------------------------------------------|:|\n";
-    cout << "                               |:|   C11   |    C12    |    C13    |    C14    |    C15    |:|\n";
-    cout << "                               |:|---------------------------------------------------------|:|\n";
-    cout << "                               |:|   C16   |    C17    |    C18    |    C19    |    C20    |:|\n";
-    cout << "                               |:|_________|___________|___________|___________|___________|:|\n";
-    cout << "                               |_____________________________________________________________|\n";
+    cout << "                           _________________________________________________________________________ \n";
+    cout << "                          |  _____________________________________________________________________  |\n";
+    cout << "                          |:| |                    COMPUTER LABORATORY 01 UNIT          [3] EXIT  |:|\n";
+    cout << "                          |:|_|                                                                   |:|\n";
+    cout << "                          |:|           +---------------------------------------------------------|:|\n";
+    cout << "                          |:|           |   C01   |    C02    |    C03    |    C04    |    C05    |:|\n";
+    cout << "                          |:|           +---------------------------------------------------------|:|\n";
+    cout << "                          |:|_          |   C06   |    C07    |    C08    |    C09    |    C10    |:|\n";
+    cout << "                          |:|_|         +---------------------------------------------------------|:|\n";
+    cout << "                          |:|           |   C11   |    C12    |    C13    |    C14    |    C15    |:|\n";
+    cout << "                          |:|_          +---------------------------------------------------------|:|\n";
+    cout << "                          |:| |         |   C16   |    C17    |    C18    |    C19    |    C20    |:|\n";
+    cout << "                          |:|_|_________|_________|___________|___________|___________|___________|:|\n";
+    cout << "                          |_________________________________________________________________________|\n";
 }
 
 // Function to display the menu options
@@ -340,4 +364,3 @@ int main() {
 
     return 0;
 }
-
