@@ -1,9 +1,9 @@
 #include <iostream>
 #include <string>
-#include <cstdlib>
-#include <ctime>
-#include <iomanip>
-#include <conio.h>  // For _getch()
+#include <cstdlib> // for system cls
+#include <ctime> 
+#include <iomanip> // for UI mapping syntax setw
+#include <conio.h>  // for _getch
 
 using namespace std;
 
@@ -38,7 +38,7 @@ public:
 
     // Method to generate a random status (Good or Bad)
     string randomStatus() {
-        return (rand() % 15 == 0) ? "Bad!" : "Good";  // 5% chance of "Bad", 95% "Good"
+        return (rand() % 5 == 0) ? "Bad!" : "Good";  // 5% chance of "Bad", 95% "Good"
     }
 
     // Method to add a new component, if there's space
@@ -76,48 +76,58 @@ public:
 
     // Method to edit a component
     void editComponent(int componentIndex) {
-        if (componentIndex < 0 || componentIndex >= numComponents) {
+       if (componentIndex < 0 || componentIndex >= numComponents) {
         	cout << "         Invalid component index.\n";
         	return;
-    	}
+   	 	}
 
     	string name, status;
     	int quantity;
+    	
+    	cout << "                                   _____________________________________________________\n";
+    	cout << "                                  |  _________________________________________________  |\n";
+    	cout << "                                  |:| Editing Component: " << left << setw(29) << components[componentIndex].name << "|:|\n";
+    	cout << "                                  |:| Current name: " << left << setw(34) << components[componentIndex].name << "|:|\n";
+    	cout << "                                  |:| Current quantity: " << left << setw(30) << components[componentIndex].quantity << "|:|\n";
+    	cout << "                                  |:| Current status: " << left << setw(32) << components[componentIndex].status << "|:|\n";
+    	cout << "                                  |:|_________________________________________________|:|\n";
+    	cout << "                                  |_____________________________________________________|\n\n";
 
-    	// Display the current details of the component
-    	cout << "         Editing Component: " << components[componentIndex].name << endl;
-    	cout << "         Current name: " << components[componentIndex].name << endl;
-    	cout << "         Current quantity: " << components[componentIndex].quantity << endl;
-    	cout << "         Current status: " << components[componentIndex].status << endl;
-    	cout << "         -------------------------------\n";
-
-    	// Now ask the user for new details
+    // Now ask the user for new details
     	cout << "         Enter new name (leave blank to keep current): ";
-    	cin.ignore();  // Ignore any leftover newline characters from previous input
-    	getline(cin, name);  // Get full line input (including spaces)
+    	cin.ignore();
+    	getline(cin, name);  // Get full line input
 
     	if (name.empty()) {
-        	name = components[componentIndex].name;  // If no new name is entered, keep the old one
-    	}
+       	 name = components[componentIndex].name;  // If no new name is entered, keep the old one
+   	    }
 
     	cout << "         Enter new quantity (enter 0 to keep current): ";
     	cin >> quantity;
     	if (quantity == 0) {
-       	 quantity = components[componentIndex].quantity;  // Keep the old quantity if user enters 0
+       	 	quantity = components[componentIndex].quantity;  // Keep the old quantity if user enters 0
     	}
 
-    	cout << "         Enter new status (Good or Bad!): ";
+    	cout << "         Enter new status (Good or Bad): ";
     	cin >> status;
+
+    	while (status != "Good" && status != "Bad") {
+        	cout << "         Invalid input. Please enter 'Good' or 'Bad': ";
+        	cin >> status;
+    	}
+    	
     	if (status.empty()) {
         	status = components[componentIndex].status;  // Keep the old status if no new status is entered
     	}
 
-    	// Update the component with the new details
+    // Update the component with the new details
     	components[componentIndex] = {name, quantity, status};
 
     	system("cls");
+
+    // Print the updated UI
     	cout << "\n\n\n\n\n\n\n\n\n\n                                                 _________________________ \n";
-    	cout << "                                                |  _____________________  |\n";
+   	    cout << "                                                |  _____________________  |\n";
     	cout << "                                                |:|  COMPONENT UPDATED  |:|\n";
     	cout << "                                                |:|_____________________|:|\n";
     	cout << "                                                |_________________________|\n";
